@@ -22,7 +22,9 @@ Or install it yourself as:
 1. Create folder 'veiws' into '#{Rails.root}/db'.
 2. Add `XXX_view_name.sql` file into db/views folder. Where `XXX` - serial number. Remember, that some views can depend on another views. Timestamp is a bad idea, because it's a not migrations, and you can't refactor views inside the file. One file - one view creating.
 3. Put into `XXX_view_name.sql` sql script which creating sql view. Something like this:
+
 ``` sql
+
 CREATE VIEW view_name AS
 SELECT
   `fossil_versions`.root_id AS demand_id,
@@ -57,7 +59,9 @@ GROUP BY
   demand_type,
   changer_id,
   request_id
+
 ```
+
 4. Run rake task "db:migrate". Each time, before this task all views will be destroyed and after db:migrate -- re-created.
 5. Views are not added to schema.rb or structure.sql.
 
