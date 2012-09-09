@@ -1,17 +1,29 @@
-#!/usr/bin/env rake
-require "bundler/gem_tasks"
+# encoding: UTF-8
+require 'rubygems'
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
 
-desc 'Run tests by default'
+require 'rake'
+require 'rake/rdoctask'
+
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
 task :default => :test
 
-namespace :test do
-
-  Rake::TestTask.new(:integration) do |t|
-    raise "NotImplementedYet"
-  end
-
-  Rake::TestTask.new(:functional) do |t|
-    raise "NotImplementedYet"
-  end
-
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'SqlViews'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
