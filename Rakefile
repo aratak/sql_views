@@ -7,10 +7,12 @@ rescue LoadError
 end
 
 require 'rake'
-require 'rake/rdoctask'
-
 require 'rake/testtask'
 
+desc "Default Task"
+task :default => :test
+
+desc "Run all tests"
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
@@ -18,12 +20,20 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
-task :default => :test
+namespace :test do
 
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'SqlViews'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  Rake::TestTask.new(:integration) do |t|
+    t.libs << 'lib'
+    t.libs << 'test'
+    t.pattern = 'test/integration/*_test.rb'
+    t.verbose = false
+  end
+
+  Rake::TestTask.new(:module) do |t|
+    t.libs << 'lib'
+    t.libs << 'test'
+    t.pattern = 'test/module/*_test.rb'
+    t.verbose = false
+  end
+
 end

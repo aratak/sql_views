@@ -28,5 +28,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rails", ">= 3.0.0", "< 4.0.0"
   gem.add_development_dependency "mysql2"
   gem.add_development_dependency "pg"
+  gem.add_development_dependency "minitest"
 
 end
